@@ -9,23 +9,23 @@ public class dashboard {
     JPanel Psname, Psgrade, Psum;
     //    Image img;
     JLabel field_lbl ,lbl_date, lbl_receipt, lbl_ACno, lbl_Snmae, lbl_Sgrade, Lbl_Sum;
-    JButton btn_login, btn_register;
+    JButton btn1, btn2, btn3, btn4;
     JTextField txt_date, txt_receipt, txt_ACno, txt_Snmae, txt_Sgrade, txt_Sum;
 
     Font fon1, fon2;
 
     public dashboard(){
-        frame = new JFrame();
+        frame = new JFrame("BILL BOARD");
 
         // Fonts
         fon1 = new Font("cambria", Font.BOLD, 22);
         fon2 = new Font("cambria", Font.BOLD, 18);
 
         // BUTTONS
-        JButton btn1 = new JButton("Submit");
-        JButton btn2 = new JButton("Update");
-        JButton btn3 = new JButton("Delete");
-        JButton btn4 = new JButton("Show");
+        btn1 = new JButton("Submit");
+        btn2 = new JButton("Update");
+        btn3 = new JButton("Delete");
+        btn4 = new JButton("Show");
 
         btn1.setBounds(15,515, 190, 90);
         btn2.setBounds(230,515, 190, 90);
@@ -59,25 +59,17 @@ public class dashboard {
 
         frame.add(leftPanel);
 
-        // right Panel
-        rightP = new JPanel();
-        rightP.setLayout(null);
-        rightP.setVisible(true);
-        rightP.setBackground(Color.decode("#6EA2C4"));
-        rightP.setBounds(450, 0, 550, 300);
-        rightP.setBorder(BorderFactory.createMatteBorder
-                (8, 0, 8, 8, Color.decode("#090C09")));
-        frame.add(rightP);
+//        // right Panel
+//        rightP = new JPanel();
+//        rightP.setLayout(null);
+//        rightP.setVisible(true);
+//        rightP.setBackground(Color.decode("#6EA2C4"));
+//        rightP.setBounds(450, 0, 550, 300);
+//        rightP.setBorder(BorderFactory.createMatteBorder
+//                (8, 0, 8, 8, Color.decode("#090C09")));
+//        frame.add(rightP);
 
-        // Search Panel
-        rightTopP = new JPanel();
-        rightTopP.setLayout(null);
-        rightTopP.setVisible(true);
-        rightTopP.setBackground(Color.decode("#A0CCDA"));
-        rightTopP.setBounds(0, 0, 550, 50);
-        rightTopP.setBorder(BorderFactory.createMatteBorder
-                (8, 0, 8, 8, Color.decode("#090C09")));
-        rightP.add(rightTopP);
+
 
         // buttons Panel
         leftdownP = new JPanel();
@@ -117,14 +109,14 @@ public class dashboard {
         leftPanel.add(leftdownP);
 
 // record panel
-        recordP = new JPanel();
-        recordP.setLayout(null);
-        recordP.setVisible(true);
-        recordP.setBackground(Color.decode("#82A6B1"));
-        recordP.setBounds(450, 300, 550, 450);
-        recordP.setBorder(BorderFactory.createMatteBorder
-                (0, 0, 10, 8, Color.decode("#090C09")));
-        frame.add(recordP);
+//        recordP = new JPanel();
+//        recordP.setLayout(null);
+//        recordP.setVisible(true);
+//        recordP.setBackground(Color.decode("#82A6B1"));
+//        recordP.setBounds(450, 300, 550, 450);
+//        recordP.setBorder(BorderFactory.createMatteBorder
+//                (0, 0, 10, 8, Color.decode("#090C09")));
+//        frame.add(recordP);
 
 
         // LABELS
@@ -204,14 +196,13 @@ public class dashboard {
 
 
 
-
-
         frame.getContentPane().setBackground(Color.decode("#82A6B1"));
 
+        frame.setResizable(false);
         frame.setLayout(null);
-        frame.setSize(1000, 750);
+        frame.setSize(1400, 750);
         frame.setVisible(true);
-        frame.setLocation(230,60);
+        frame.setLocation(15,60);
 
 
     }
