@@ -44,6 +44,7 @@ public class Login implements ActionListener {
             btn_login.setForeground(Color.darkGray);
             btn_login.setBackground(Color.CYAN);
             btn_login.setBounds(240, 370, 100, 50);
+            btn_login.addActionListener(this);
             frame.add(btn_login);
 
             btn_register = new JButton("Register");
@@ -88,6 +89,13 @@ public class Login implements ActionListener {
             new RegisterPage();
             frame.dispose();
         }
+        else if (e.getSource() == btn_login){
+
+            String username = txt_username.getText();
+            String password = txt_password.getText();
+//            String query = " Select "
+        }
     }
+
 
 }

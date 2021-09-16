@@ -147,6 +147,11 @@ public class RegisterPage implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+            String first_name = txt_fname.getName();
+            String last_name = txt_lnamae.getName();
+            String email = txt_email.getName();
+            String password = pw.getName();
+
         if (e.getSource()== btn_register){
             new Login();
             fr.dispose();

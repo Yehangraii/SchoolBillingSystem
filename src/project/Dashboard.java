@@ -1,23 +1,26 @@
 package project;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class Dashboard implements ActionListener {
+public class Dashboard implements ActionListener, MouseListener {
     JFrame frame;
-    JPanel leftPanel, rightP, leftdownP, rightTopP, recordP;
-    JPanel Psname, Psgrade, Psum;
-    //    Image img;
-    JLabel field_lbl ,lbl_date, lbl_receipt, lbl_ACno, lbl_Snmae, lbl_Sgrade, Lbl_Sum;
+    JPanel leftPanel, rightP, leftdownP;
+
+    JLabel  lbl_date, lbl_receipt, lbl_ACno, lbl_Snmae, lbl_Sgrade, Lbl_Sum;
     JButton btn1, btn2, btn3, btn4;
     JTextField txt_date, txt_receipt, txt_ACno, txt_Snmae, txt_Sgrade, txt_Sum;
 
     JTable tab;
-    Font fon1, fon2;
+    Font fon1, fon2, fon3;
 
 
     int row;
@@ -33,6 +36,7 @@ public class Dashboard implements ActionListener {
         // Fonts
         fon1 = new Font("cambria", Font.BOLD, 22);
         fon2 = new Font("cambria", Font.BOLD, 18);
+        fon3 = new Font("abhaya libre regular", Font.ITALIC, 15);
 
         // BUTTONS
         btn1 = new JButton("Submit");
@@ -44,7 +48,7 @@ public class Dashboard implements ActionListener {
         btn3 = new JButton("Delete");
         btn3.addActionListener(this);
 
-        btn4 = new JButton("Show");
+        btn4 = new JButton("Clear");
         btn4.addActionListener(this);
 
         btn1.setBounds(15,515, 190, 90);
@@ -57,10 +61,6 @@ public class Dashboard implements ActionListener {
         btn3.setBackground(Color.decode("#76877D"));
         btn4.setBackground(Color.decode("#76877D"));
 
-//        btn1.getContentPane().setBackground(Color.decode("#5375e2"));
-
-
-//        leftdownP.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 25));
 
         frame.add(btn1);
         frame.add(btn2);
@@ -79,17 +79,6 @@ public class Dashboard implements ActionListener {
 
         frame.add(leftPanel);
 
-//        // right Panel
-//        rightP = new JPanel();
-//        rightP.setLayout(null);
-//        rightP.setVisible(true);
-//        rightP.setBackground(Color.decode("#6EA2C4"));
-//        rightP.setBounds(450, 0, 550, 300);
-//        rightP.setBorder(BorderFactory.createMatteBorder
-//                (8, 0, 8, 8, Color.decode("#090C09")));
-//        frame.add(rightP);
-
-
 
         // buttons Panel
         leftdownP = new JPanel();
@@ -101,42 +90,7 @@ public class Dashboard implements ActionListener {
                 (8, 8, 10, 8, Color.decode("#090C09")));
 
 
-
-//        leftdownP.setLayout(new GridLayout(2,2));
-//        JButton btn1 = new JButton("Submit");
-//        JButton btn2 = new JButton("Update");
-//        JButton btn3 = new JButton("Delete");
-//        JButton btn4 = new JButton("Show");
-//
-//        btn1.setBounds(15,15, 190, 90);
-//        btn2.setBounds(230,15, 190, 90);
-//        btn3.setBounds(15,120, 190, 90);
-//        btn4.setBounds(230,120, 190, 90);
-//
-//        btn1.setBackground(Color.decode("#76877D"));
-//        btn2.setBackground(Color.decode("#76877D"));
-//        btn3.setBackground(Color.decode("#76877D"));
-//        btn4.setBackground(Color.decode("#76877D"));
-//
-////        leftdownP.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 25));
-//
-//
-//        leftdownP.add(btn1);
-//        leftdownP.add(btn2);
-//        leftdownP.add(btn3);
-//        leftdownP.add(btn4);
-
         leftPanel.add(leftdownP);
-
-// record panel
-//        recordP = new JPanel();
-//        recordP.setLayout(null);
-//        recordP.setVisible(true);
-//        recordP.setBackground(Color.decode("#82A6B1"));
-//        recordP.setBounds(450, 300, 550, 450);
-//        recordP.setBorder(BorderFactory.createMatteBorder
-//                (0, 0, 10, 8, Color.decode("#090C09")));
-//        frame.add(recordP);
 
 
         // LABELS
@@ -219,10 +173,25 @@ public class Dashboard implements ActionListener {
         tab.setModel(dtm);
         dtm.fireTableDataChanged();
         tab.setRowHeight(25);
-        tab.setBorder(BorderFactory.createMatteBorder(3,6,6,6,Color.decode("#1A2B63")));
+        tab.setEditingColumn(30);
+        tab.setBorder(BorderFactory.createMatteBorder(3,5,6,5,Color.decode("#1A2B63")));
         tab.setBounds(480,65,880,600);
-        tab.setFont(fon1);
+
+        tab.addMouseListener(this);
+
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment( JLabel.CENTER );
+        tab.getColumnModel().getColumn(0).setCellRenderer( centerRenderer );
+        tab.getColumnModel().getColumn(1).setCellRenderer( centerRenderer );
+        tab.getColumnModel().getColumn(2).setCellRenderer( centerRenderer );
+        tab.getColumnModel().getColumn(3).setCellRenderer( centerRenderer );
+        tab.getColumnModel().getColumn(4).setCellRenderer( centerRenderer );
+        tab.getColumnModel().getColumn(5).setCellRenderer( centerRenderer );
+
+        tab.setFont(fon3);
         frame.add(tab);
+
+        datas();
 
 
         frame.getContentPane().setBackground(Color.decode("#82A6B1"));
@@ -234,7 +203,6 @@ public class Dashboard implements ActionListener {
         frame.setLocation(15,60);
 
 
-
     }
     public static void main(String[] args){
         new Dashboard();
@@ -242,6 +210,102 @@ public class Dashboard implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btn4){
+            txt_date.setText("");
+            txt_receipt.setText("");
+            txt_ACno.setText("");
+            txt_Snmae.setText("");
+            txt_Sgrade.setText("");
+            txt_Sum.setText("");
+        }
+        else if (e.getSource() == btn1){
+            Table data = new Table(txt_date.getText(), txt_receipt.getText(), txt_ACno.getText(), txt_Snmae.getText(), txt_Sgrade.getText(), txt_Sum.getText());
+            studentList.add(data);
+            datas();
+        }
+        else if (e.getSource() == btn2){
+            try {
+                DataBase db = new DataBase();
+                String query = "Update bill SET receipt_date='"+txt_date.getText()+"',receipt_no='"+txt_receipt.getText()+"',ac_no='"+txt_ACno.getText()+"'," +
+                        "student_name='"+txt_Snmae.getText()+"', students_grade='"+txt_Sgrade.getText()+"',  total_amount='"+txt_Sum.getText()+"' where receipt_no='"+txt_receipt.getText()+"' ";
+
+                int i = tab.getSelectedRow();
+
+                dtm.setValueAt(txt_date.getText(), i, 0);
+                dtm.setValueAt(txt_receipt.getText(), i, 1);
+                dtm.setValueAt(txt_ACno.getText(), i, 2);
+                dtm.setValueAt(txt_Snmae.getText(), i, 3);
+                dtm.setValueAt(txt_Sgrade.getText(), i, 4);
+                dtm.setValueAt(txt_Sum.getText(), i, 5);
+                JOptionPane.showMessageDialog(null, "Data Updated!!!");
+                db.update(query);
+                datas();
+            }catch (Exception throwables){
+                throwables.printStackTrace();
+            }
+        }
+        else if (e.getSource() == btn3){
+            try {
+                DataBase db = new DataBase();
+
+                String query = "Delete from bill where receipt_no ='" + txt_receipt.getText() + "'";
+                int i = tab.getSelectedRow();
+                if (i >= 0) {
+                    dtm.removeRow(i);
+                    JOptionPane.showMessageDialog(null, "deleted datas!");
+                    db.delete(query);
+                    datas();
+                }
+            }catch (Exception exception){
+                exception.printStackTrace();
+            }
+        }
+
+    }
+
+    public void datas(){
+        try {
+            DataBase db = new DataBase();
+            String query = "Select * from bill";
+            ResultSet rs = db.select(query);
+            dtm.setRowCount(0);
+            while (rs.next()) {
+                Object[] obj = {rs.getString("receipt_date"), rs.getString("receipt_no"), rs.getString("ac_no"),rs.getString("student_name"), rs.getString("students_grade"), rs.getString("total_amount") };
+                dtm.addRow(obj);
+            }
+        }catch (Exception throwables){
+            throwables.printStackTrace();
+        }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int i = tab.getSelectedRow();
+        txt_date.setText(dtm.getValueAt(i,0).toString());
+        txt_receipt.setText(dtm.getValueAt(i,1).toString());
+        txt_ACno.setText(dtm.getValueAt(i,2).toString());
+        txt_Snmae.setText(dtm.getValueAt(i,3).toString());
+        txt_Sgrade.setText(dtm.getValueAt(i,4).toString());
+        txt_Sum.setText(dtm.getValueAt(i,5).toString());
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
 
     }
 }
