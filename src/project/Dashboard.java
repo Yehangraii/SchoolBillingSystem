@@ -1,9 +1,13 @@
 package project;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-public class dashboard {
+public class Dashboard implements ActionListener {
     JFrame frame;
     JPanel leftPanel, rightP, leftdownP, rightTopP, recordP;
     JPanel Psname, Psgrade, Psum;
@@ -12,9 +16,18 @@ public class dashboard {
     JButton btn1, btn2, btn3, btn4;
     JTextField txt_date, txt_receipt, txt_ACno, txt_Snmae, txt_Sgrade, txt_Sum;
 
+    JTable tab;
     Font fon1, fon2;
 
-    public dashboard(){
+
+    int row;
+    ArrayList<Table> studentList;
+    DefaultTableModel dtm;
+    String header[] = new String[]{"Date" , "Receipt_no" , "AC_no" , "Student_name" , "Students_grade" , "Sum"};
+    
+
+
+    public Dashboard(){
         frame = new JFrame("BILL BOARD");
 
         // Fonts
@@ -23,9 +36,16 @@ public class dashboard {
 
         // BUTTONS
         btn1 = new JButton("Submit");
+        btn1.addActionListener(this);
+
         btn2 = new JButton("Update");
+        btn2.addActionListener(this);
+
         btn3 = new JButton("Delete");
+        btn3.addActionListener(this);
+
         btn4 = new JButton("Show");
+        btn4.addActionListener(this);
 
         btn1.setBounds(15,515, 190, 90);
         btn2.setBounds(230,515, 190, 90);
@@ -193,7 +213,16 @@ public class dashboard {
         txt_Sum.setBounds(190, 365, 250, 50);
         leftPanel.add(txt_Sum);
 
-
+        tab = new JTable();
+        studentList = new ArrayList<>();
+        dtm = new DefaultTableModel(header,0);
+        tab.setModel(dtm);
+        dtm.fireTableDataChanged();
+        tab.setRowHeight(25);
+        tab.setBorder(BorderFactory.createMatteBorder(3,6,6,6,Color.decode("#1A2B63")));
+        tab.setBounds(480,65,880,600);
+        tab.setFont(fon1);
+        frame.add(tab);
 
 
         frame.getContentPane().setBackground(Color.decode("#82A6B1"));
@@ -205,9 +234,14 @@ public class dashboard {
         frame.setLocation(15,60);
 
 
+
     }
     public static void main(String[] args){
-        new dashboard();
+        new Dashboard();
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
