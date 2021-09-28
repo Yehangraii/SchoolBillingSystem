@@ -19,7 +19,7 @@ public class DataBase {
                 if (myConn != null) {
                     System.out.print("");
                 } else {
-                    System.out.println("There is an error.");
+                    System.out.println("error occurred.");
                 }
                 st = myConn.createStatement();
             } catch (Exception e) {
