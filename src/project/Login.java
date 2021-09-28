@@ -16,17 +16,30 @@ public class Login implements ActionListener {
     JPasswordField txt_password;
     JPanel pan;
     Font fn, fn1;
+    Image bgimage;
 
     public Login() {
-        frame = new JFrame("LMS");
+        frame = new JFrame("Login Page");
 
         fn = new Font("Cambria", Font.BOLD, 25);
         fn1 = new Font("Cambria", Font.ITALIC, 15);
 
-        txt_title = new JLabel("Login Credentials");
-        txt_title.setFont(fn);
-        txt_title.setForeground(Color.decode("#A7C0C8"));
-        txt_title.setBounds(250, 50, 250, 30);
+
+        ImageIcon background = new ImageIcon
+                ("/Users/kriipa/IdeaProjects/ManagementSystem/src/project/Images/Sign up today!.png");
+        bgimage = background.getImage();
+        Image temp = bgimage.getScaledInstance(700, 550, Image.SCALE_SMOOTH);
+        background = new ImageIcon(temp);
+        JLabel back = new JLabel(background);
+        back.setBounds(0, 0, 700, 550);
+        back.setLayout(null);
+        back.setVisible(true);
+        frame.add(back);
+
+//        txt_title = new JLabel("Login Credentials");
+//        txt_title.setFont(fn);
+//        txt_title.setForeground(Color.decode("#628474"));
+//        txt_title.setBounds(250, 50, 250, 30);
 
         lbl_username = new JLabel("Email");
         lbl_username.setFont(fn1);
@@ -47,7 +60,7 @@ public class Login implements ActionListener {
         btn_login.setBackground(Color.CYAN);
         btn_login.setBounds(240, 370, 100, 50);
         btn_login.addActionListener(this);
-        frame.add(btn_login);
+        back.add(btn_login);
 
         btn_register = new JButton("Register");
         btn_register.setForeground(Color.darkGray);
@@ -55,12 +68,12 @@ public class Login implements ActionListener {
         btn_register.setBounds(360, 370, 100, 50);
         btn_register.addActionListener(this);
 
-        frame.add(btn_register);
-        frame.add(txt_title);
-        frame.add(lbl_username);
-        frame.add(lbl_password);
-        frame.add(txt_password);
-        frame.add(txt_username);
+        back.add(btn_register);
+//        back.add(txt_title);
+        back.add(lbl_username);
+        back.add(lbl_password);
+        back.add(txt_password);
+        back.add(txt_username);
 
         // JPanel
         pan = new JPanel();
@@ -68,12 +81,12 @@ public class Login implements ActionListener {
         pan.setLayout(null);
 //            pan.setSize(450, 300);
         pan.setVisible(true);
-        pan.setBackground(Color.decode("#A7C0C8"));
+        pan.setBackground(Color.decode("#628474"));
         pan.setBounds(125, 100, 450, 350);
         pan.setBorder(BorderFactory.createMatteBorder
                 (8, 8, 8, 8, Color.decode("#090C09")));
 
-        frame.add(pan);
+        back.add(pan);
 
         frame.getContentPane().setBackground(Color.decode("#276891"));
         frame.setLayout(null);
@@ -99,13 +112,13 @@ public class Login implements ActionListener {
             ResultSet rs= db.select(query);
             try {
                 if (username.length()==0 && password.length()==0){
-                    JOptionPane.showMessageDialog(btn_login,"Please! Re-enter your information.");
+                    JOptionPane.showMessageDialog(btn_login,"fill the fields!!");
                 }else if (rs.next()){
-                    JOptionPane.showMessageDialog(btn_login,"Login Successfully.");
+                    JOptionPane.showMessageDialog(btn_login,"Login Successful!");
                     new Dashboard();
                     frame.dispose();
                 }else{
-                    JOptionPane.showMessageDialog(btn_login,"Please! Enter Correct Information.");
+                    JOptionPane.showMessageDialog(btn_login,"credentials do not match our record");
                 }
             }catch (SQLException throwables){
                 throwables.printStackTrace();

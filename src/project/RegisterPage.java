@@ -163,7 +163,7 @@ public class RegisterPage implements ActionListener {
             String query = "INSERT into register(first_name, last_name, email, password) Values('"+ detail.getFirst_name() +"','"+ detail.getLast_name() +"', '"+ detail.getEmail() +"', '"+ detail.getPassword() +"' )";
             int row = data.insert(query);
             if (row > 0 ){
-                JOptionPane.showMessageDialog(null, " data registered ");
+                JOptionPane.showMessageDialog(null, " your data is registered ");
                 new Login();
                 fr.dispose();
             }

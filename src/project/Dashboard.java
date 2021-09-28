@@ -22,6 +22,8 @@ public class Dashboard implements ActionListener, MouseListener {
     JTable tab;
     Font fon1, fon2, fon3;
 
+    JLabel lbl_d, lbl_r, lbl_a, lbl_n, lbl_g, lbl_s ;
+
 
     int row;
     ArrayList<Table> studentList;
@@ -167,6 +169,50 @@ public class Dashboard implements ActionListener, MouseListener {
         txt_Sum.setBounds(190, 365, 250, 50);
         leftPanel.add(txt_Sum);
 
+
+        // labels on top of the table
+
+        lbl_d = new JLabel("Date");
+        lbl_d.setForeground(Color.BLACK);
+        lbl_d.setFont(fon2);
+        lbl_d.setBounds(500, 25, 150, 60);
+        lbl_d.setVisible(true);
+        frame.add(lbl_d);
+
+
+        lbl_r = new JLabel("Recepit no.");
+        lbl_r.setForeground(Color.BLACK);
+        lbl_r.setFont(fon2);
+        lbl_r.setBounds(640, 25, 150, 60);
+        frame.add(lbl_r);
+
+        lbl_a = new JLabel("A/C no.");
+        lbl_a.setForeground(Color.BLACK);
+        lbl_a.setFont(fon2);
+        lbl_a.setBounds(800, 25, 150, 60);
+        frame.add(lbl_a);
+
+        lbl_n = new JLabel("Student's " +
+                "name");
+        lbl_n.setForeground(Color.BLACK);
+        lbl_n.setFont(fon2);
+        lbl_n.setBounds(910, 25, 150, 60);
+        frame.add(lbl_n);
+
+        lbl_g = new JLabel("Stutent's grade");
+        lbl_g.setForeground(Color.BLACK);
+        lbl_g.setFont(fon2);
+        lbl_g.setBounds(1100, 25, 150, 60);
+        frame.add(lbl_g);
+
+        lbl_s = new JLabel("Total Sum");
+        lbl_s.setForeground(Color.BLACK);
+        lbl_s.setFont(fon2);
+        lbl_s.setBounds(1260, 25, 150, 60);
+        frame.add(lbl_s);
+
+
+
         tab = new JTable();
         studentList = new ArrayList<>();
         dtm = new DefaultTableModel(header,0);
@@ -174,7 +220,7 @@ public class Dashboard implements ActionListener, MouseListener {
         dtm.fireTableDataChanged();
         tab.setRowHeight(25);
         tab.setEditingColumn(30);
-        tab.setBorder(BorderFactory.createMatteBorder(3,5,6,5,Color.decode("#1A2B63")));
+        tab.setBorder(BorderFactory.createMatteBorder(3,5,6,5,Color.decode("#090C09")));
         tab.setBounds(480,65,880,600);
 
         tab.addMouseListener(this);
@@ -237,7 +283,7 @@ public class Dashboard implements ActionListener, MouseListener {
                 dtm.setValueAt(txt_Snmae.getText(), i, 3);
                 dtm.setValueAt(txt_Sgrade.getText(), i, 4);
                 dtm.setValueAt(txt_Sum.getText(), i, 5);
-                JOptionPane.showMessageDialog(null, "Data Updated!!!");
+                JOptionPane.showMessageDialog(null, "Update Successful!");
                 db.update(query);
                 datas();
             }catch (Exception throwables){
@@ -252,7 +298,7 @@ public class Dashboard implements ActionListener, MouseListener {
                 int i = tab.getSelectedRow();
                 if (i >= 0) {
                     dtm.removeRow(i);
-                    JOptionPane.showMessageDialog(null, "deleted datas!");
+                    JOptionPane.showMessageDialog(null, "deleted data!");
                     db.delete(query);
                     datas();
                 }
